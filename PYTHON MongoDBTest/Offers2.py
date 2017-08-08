@@ -1,0 +1,15 @@
+import pymongo
+
+
+client = pymongo.MongoClient('localhost', 27017)
+
+db = client.OffersDB
+
+f = open('H:\Fandango\Offers2.csv', 'w')
+
+for rest2 in db.bundles.aggregate([{"$group":{"_id":"Offer_id","count":{"$sum":1}}},{"$sort":{"count":-1}}]):
+    f.write('"%s",%d' % (rest2["_id"], rest2["count"]))
+    f.write("\n")
+
+f.write("total = %d" % db.bundles.count())
+f.close()
