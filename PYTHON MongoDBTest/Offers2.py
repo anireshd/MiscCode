@@ -11,7 +11,7 @@ varBundle = []
 for bundles1 in db.bundles.aggregate([{"$group": {"_id": "$Offer_id", "count": {"$sum": 1}}}, {"$sort": {"count": -1}}]):
     varBundle.append(bundles1)
 
-for offers1 in db.offers.find({}, {"Offer_id": 1, "Offer_nm": 1, "_id": 0}):
+for offers1 in db.offers.find({}, {"Offer_id": 1, "Offer_nm": 1, "_id": 0}).sort("Offer_id",1):
 
    for x in varBundle:
 
